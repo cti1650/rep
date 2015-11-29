@@ -312,7 +312,7 @@ Public Function 条件値一括追加(ByVal 項目名 As String, ParamArray 条�
     If 項目名 Like "*" & vbCrLf & "*" Then 項目名 = Replace(項目名, vbCrLf, vbLf)
     If 条件式 Like "*" & vbCrLf & "*" Then 条件式 = Replace(条件式, vbCrLf, vbLf)
     
-    If 条件文字列 <> "" Then 条件文字列 = 条件文字列 & vbCrLf
+    If 条件文字列 <> "" Then 条件文字列 = 条件文字列 & vbCrlf
     
     条件文字列 = 条件文字列 & 項目名 & "^_-" & 条件式
     
