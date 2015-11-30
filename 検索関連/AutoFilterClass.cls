@@ -11,7 +11,7 @@ Private Const TestMode As Boolean = False
 Private Const 基準行 As String = "1:1"
 Private 条件文字列 As String
 Private 条件配列 As Variant
-Private clsセル As Range
+Private 基準セル範囲 As Range
 Private bCal As Variant
 
 Private Sub Class_Initialize()
@@ -22,7 +22,7 @@ Private Sub Class_Initialize()
         .ScreenUpdating = False
         .EnableEvents = False
     End With
-    Set clsセル = ActiveCell
+    Set 基準セル範囲 = ActiveCell
     条件文字列 = ""
     条件配列 = Array("", "")
     
@@ -32,7 +32,7 @@ Private Sub Class_Terminate()
 
     条件文字列 = ""
     条件配列 = Array("", "")
-    Set clsセル = Nothing
+    Set 基準セル範囲 = Nothing
     With Application
         .Calculation = bCal
         .ScreenUpdating = True
@@ -43,7 +43,7 @@ End Sub
 
 Private Function 抽出可否(Optional ByVal 空白確認値 As Variant = "-") As Boolean
 
-    If clsセル Is Nothing Or 空白確認値 = "" Then
+    If 基準セル範囲 Is Nothing Or 空白確認値 = "" Then
         抽出可否 = False
         Exit Function
     End If
@@ -70,7 +70,7 @@ Public Sub 抽出(Optional ByVal フィルターリセット As Boolean = True)
         
         Err.Clear
         
-        With clsセル.Areas(1)
+        With 基準セル範囲.Areas(1)
         
             For i = LBound(条件配列, 2) To UBound(条件配列, 2)
                 検索項目 = 条件配列(0, i)
@@ -119,7 +119,7 @@ Public Function 項目列(ByVal 検索項目名 As String) As Long
 
     If buf Then
     
-        項目列 = clsセル.Item(1, buf).Column
+        項目列 = 基準セル範囲.Item(1, buf).Column
         
     Else
     
@@ -182,7 +182,7 @@ Private Function cls項目列(ByVal 検索項目名 As String) As Long
             On Error Resume Next
         #End If
         
-        Set MRn = clsセル
+        Set MRn = 基準セル範囲
         
         Dim arRn As Variant
         
@@ -436,7 +436,7 @@ Public Function 解除()
 
     If 抽出可否 Then
 
-        With clsセル.Worksheet
+        With 基準セル範囲.Worksheet
 
             If .AutoFilterMode = True Then
             
@@ -461,7 +461,7 @@ Public Function 解除()
         
             Else
         
-                clsセル.Rows(clsセル.Rows.count).AutoFilter
+                基準セル範囲.Rows(基準セル範囲.Rows.count).AutoFilter
         
             End If
         
@@ -474,6 +474,6 @@ End Function
 
 Public Function 項目行範囲(ByRef セル As Range)
 
-    Set clsセル = セル
+    Set 基準セル範囲 = セル
 
 End Function

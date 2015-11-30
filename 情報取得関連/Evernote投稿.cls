@@ -22,7 +22,7 @@ End Sub
 Private Sub Class_Terminate()
 
     Me.クリア
-
+    
 End Sub
 
 
